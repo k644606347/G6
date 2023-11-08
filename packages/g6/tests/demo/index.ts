@@ -78,6 +78,8 @@ import label from './item/label';
 export { default as timebar_time } from './plugins/timebar-time';
 export { default as timebar_chart } from './plugins/timebar-chart';
 
+export { default as test_item_bbox } from './test_item_bbox'
+
 export {
   label,
   anchor,
