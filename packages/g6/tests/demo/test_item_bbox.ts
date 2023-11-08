@@ -66,6 +66,13 @@ export default (context: TestCaseContext) => {
     },
     data: graphData,
   });
+  graph.on('viewportchange', e => {
+    const testItem = (graph as any).getItemById('node-7')
+    console.log(
+      'node-7 getBBox', JSON.stringify(testItem.getBBox()),
+      'node-7 getPosition', JSON.stringify(testItem.getPosition())
+    )
+})
 
   return graph;
 };
