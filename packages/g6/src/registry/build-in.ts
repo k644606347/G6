@@ -80,6 +80,7 @@ import {
   Hull,
   Legend,
   Minimap,
+  SnapLine,
   Snapline,
   Timebar,
   Toolbar,
@@ -199,6 +200,7 @@ const BUILT_IN_EXTENSIONS: ExtensionRegistry = {
     toolbar: Toolbar,
     tooltip: Tooltip,
     watermark: Watermark,
+    snapline: SnapLine,
   },
   transform: {
     'update-related-edges': UpdateRelatedEdge,

@@ -39,5 +39,11 @@ export const behaviorScrollCanvas: TestCase = async (context) => {
 
   await graph.render();
 
+  (window as any).__graph = graph;
+  (window as any).__g_instances__ = [];
+
+  const canvas = graph.getCanvas();
+
+  (window as any).__g_instances__.push(canvas);
   return graph;
 };

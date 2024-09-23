@@ -11,7 +11,7 @@ export { History } from './history';
 export { Hull } from './hull';
 export { Legend } from './legend';
 export { Minimap } from './minimap';
-export { Snapline } from './snapline';
+export { SnapLine, Snapline } from './snapline';
 export { Timebar } from './timebar';
 export { Toolbar } from './toolbar';
 export { Tooltip } from './tooltip';

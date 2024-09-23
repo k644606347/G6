@@ -1,74 +1,65 @@
-import { Graph, Node } from '@antv/g6';
+import { Graph } from '@/src';
 
 export const pluginSnapline: TestCase = async (context) => {
   const graph = new Graph({
     ...context,
     data: {
       nodes: [
-        { id: 'node1', style: { x: 100, y: 100 } },
-        { id: 'node2', style: { x: 300, y: 300 } },
-        { id: 'node3', style: { x: 120, y: 200 } },
+        { id: 'node-1', style: { x: 100, y: 100 } },
+        { id: 'node-2', combo: 'combo-1', style: { x: 200, y: 100 } },
+        { id: 'node-3', style: { x: 100, y: 200 } },
+        { id: 'node-4', combo: 'combo-1', style: { x: 200, y: 200 } },
       ],
+      edges: [
+        { source: 'node-1', target: 'node-2' },
+        { source: 'node-2', target: 'node-4' },
+        { source: 'node-1', target: 'node-3' },
+        { source: 'node-3', target: 'node-4' },
+      ],
+      combos: [{ id: 'combo-1' }],
     },
-    node: {
-      type: (datum) => (datum.id === 'node3' ? 'circle' : 'rect'),
-      style: {
-        size: (datum) => (datum.id === 'node3' ? 40 : [60, 30]),
-        fill: 'transparent',
-        lineWidth: 2,
-        labelText: (datum) => datum.id,
+    node: { style: { size: 20 } },
+    edge: {
+      style: { endArrow: true },
+    },
+    behaviors: [
+      {
+        type: 'drag-element',
+        // shadow: true
       },
-    },
-    behaviors: ['drag-element', 'drag-canvas', 'zoom-canvas'],
+      // {
+      //   type: 'scroll-canvas',
+      //   // shadow: true
+      // },
+      {
+        type: 'zoom-canvas',
+        // shadow: true
+      },
+    ],
     plugins: [
       {
         type: 'snapline',
-        key: 'snapline',
-        verticalLineStyle: { stroke: '#F08F56', lineWidth: 2 },
-        horizontalLineStyle: { stroke: '#17C76F', lineWidth: 2 },
-        autoSnap: false,
       },
     ],
   });
 
   await graph.render();
 
-  const config = {
-    filter: false,
-    offset: 20,
-    autoSnap: false,
-  };
-
   pluginSnapline.form = (panel) => {
+    const config = {
+      enable: true,
+      hideEdge: 'none',
+      shadow: false,
+    };
+    const handleChange = () => {
+      graph.setBehaviors([{ type: 'drag-element', ...config }]);
+    };
     return [
-      panel
-        .add(config, 'filter')
-        .name('Add Filter(exclude circle)')
-        .onChange((filter: boolean) => {
-          graph.updatePlugin({
-            key: 'snapline',
-            filter: (node: Node) => (filter ? node.id !== 'node3' : true),
-          });
-        }),
-      panel
-        .add(config, 'offset', [0, 20, Infinity])
-        .name('Offset')
-        .onChange((offset: string) => {
-          graph.updatePlugin({
-            key: 'snapline',
-            offset,
-          });
-        }),
-      panel
-        .add(config, 'autoSnap')
-        .name('Auto Snap')
-        .onChange((autoSnap: boolean) => {
-          graph.updatePlugin({
-            key: 'snapline',
-            autoSnap,
-          });
-        }),
+      panel.add(config, 'enable').onChange(handleChange),
+      panel.add(config, 'hideEdge', ['none', 'in', 'out', 'both']).onChange(handleChange),
+      panel.add(config, 'shadow').onChange(handleChange),
     ];
   };
+
   return graph;
 };

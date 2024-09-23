@@ -10,7 +10,7 @@ export const pluginGridLine: TestCase = async (context) => {
     behaviors: ['drag-canvas'],
     plugins: [{ type: 'grid-line', follow: false }],
   });
-
+  (window as any).__graph = graph;
   await graph.render();
 
   pluginGridLine.form = (panel) => {

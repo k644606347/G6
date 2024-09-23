@@ -63,5 +63,6 @@
   ],
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
-  "svg.preview.background": "transparent"
+  "svg.preview.background": "transparent",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

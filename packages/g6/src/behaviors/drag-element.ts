@@ -236,6 +236,7 @@ export class DragElement extends BaseBehavior<DragElementOptions> {
    * @internal
    */
   protected onDragStart(event: IElementDragEvent) {
+    // console.log('onDragStart', event, event.target, event.target.id)
     this.enable = this.validate(event);
     if (!this.enable) return;
 
